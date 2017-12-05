@@ -117,6 +117,97 @@ namespace PruebasDondeInvierto
             driver.Quit();
         }
 
+        [TestMethod]
+        public void MetodologiaLongevidad()
+        {
+            driver = new FirefoxDriver();
+            baseURL = "http://dondeinviertodds.azurewebsites.net/";
+            verificationErrors = new StringBuilder();
+
+            driver.Navigate().GoToUrl(baseURL + "/Home");
+            driver.FindElement(By.LinkText("Metodologías")).Click();
+            new SelectElement(driver.FindElement(By.Id("MetodologiaSeleccionada"))).SelectByText("Longevidad");
+            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            Assert.AreEqual("Rochlin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[2]/td")).Text);
+            Assert.AreEqual("Goldfarb", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[3]/td")).Text);
+            Assert.AreEqual("Feiguin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[4]/td")).Text);
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            driver.Quit();
+        }
+
+        [TestMethod]
+        public void MetodologiaEvaluacionROE()
+        {
+            driver = new FirefoxDriver();
+            baseURL = "http://dondeinviertodds.azurewebsites.net/";
+            verificationErrors = new StringBuilder();
+
+            driver.Navigate().GoToUrl(baseURL + "/Home");
+            driver.FindElement(By.LinkText("Metodologías")).Click();
+            new SelectElement(driver.FindElement(By.Id("MetodologiaSeleccionada"))).SelectByText("Maximizar ROE");
+            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            Assert.AreEqual("Porracin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[2]/td")).Text);
+            Assert.AreEqual("0.23", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[2]/td[3]")).Text);
+            Assert.AreEqual("Goldfarb", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[3]/td")).Text);
+            Assert.AreEqual("0.22", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[3]/td[3]")).Text);
+            Assert.AreEqual("Feiguin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[4]/td")).Text);
+            Assert.AreEqual("0.22", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[4]/td[3]")).Text);
+            Assert.AreEqual("Rochlin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[5]/td")).Text);
+            Assert.AreEqual("0.19", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[5]/td[3]")).Text);
+            Assert.AreEqual("Erratchu", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[6]/td")).Text);
+            Assert.AreEqual("0.18", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[6]/td[3]")).Text);
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            driver.Quit();
+        }
+
+        [TestMethod]
+        public void MetodologiaMinimizarNivelDeDeuda()
+        {
+            driver = new FirefoxDriver();
+            baseURL = "http://dondeinviertodds.azurewebsites.net/";
+            verificationErrors = new StringBuilder();
+
+            driver.Navigate().GoToUrl(baseURL + "/Home");
+            driver.FindElement(By.LinkText("Metodologías")).Click();
+            new SelectElement(driver.FindElement(By.Id("MetodologiaSeleccionada"))).SelectByText("Minimizar nivel de Deuda");
+            driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
+            Assert.AreEqual("Feiguin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[2]/td")).Text);
+            Assert.AreEqual("Rochlin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[3]/td")).Text);
+            Assert.AreEqual("Goldfarb", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[4]/td")).Text);
+            Assert.AreEqual("Erratchu", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[5]/td")).Text);
+            Assert.AreEqual("Porracin", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[6]/td")).Text);
+            Assert.AreEqual("0.06", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[2]/td[3]")).Text);
+            Assert.AreEqual("0.06", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[3]/td[3]")).Text);
+            Assert.AreEqual("0.07", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[4]/td[3]")).Text);
+            Assert.AreEqual("0.10", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[5]/td[3]")).Text);
+            Assert.AreEqual("0.12", driver.FindElement(By.XPath("//form[@id='form']/table/tbody/tr[6]/td[3]")).Text);
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            driver.Quit();
+        }
+
+        [TestMethod]
+        public void CrearMetodologia()
+        {
+            driver = new FirefoxDriver();
+            baseURL = "http://dondeinviertodds.azurewebsites.net/";
+            verificationErrors = new StringBuilder();
+
+            driver.Navigate().GoToUrl(baseURL + "/Home");
+            driver.FindElement(By.LinkText("Metodologías")).Click();
+            driver.FindElement(By.LinkText("Crear nueva metodologia")).Click();
+            driver.FindElement(By.Name("Nombre")).Clear();
+            driver.FindElement(By.Name("Nombre")).SendKeys("MetodologiaPruebaTest");
+            new SelectElement(driver.FindElement(By.Id("indicador"))).SelectByText("IngresoNeto");
+            new SelectElement(driver.FindElement(By.Id("operacion"))).SelectByText("Maximo");
+            driver.FindElement(By.Name("Descripcion")).Clear();
+            driver.FindElement(By.Name("Descripcion")).SendKeys("Maximo Ingreso Neto");
+            driver.FindElement(By.CssSelector("input.btn.btn-default")).Click();
+            Assert.AreEqual("MetodologiaPruebaTest", driver.FindElement(By.XPath("//tr[7]/td")).Text);
+            Assert.AreEqual("Maximo Ingreso Neto", driver.FindElement(By.XPath("//tr[7]/td[2]")).Text);
+            WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 10));
+            driver.Quit();
+        }
+
         private string CloseAlertAndGetItsText()
         {
             try
